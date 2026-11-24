@@ -1,12 +1,12 @@
 // One-Liner Marathon — one-line comedy joke.
 // The program writes the joke verbatim to /output/entry.txt, exactly as
-// the judge will read it. The joke is a single line of 71 characters.
+// the judge will read it. The joke is a single line of 88 characters.
 
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 
 const JOKE =
-  "I told my AI to be more human. It started replying 'per my last email'.";
+  "My AI wrote my eulogy in advance. It gave me three stars and called the ending 'rushed'.";
 
 const OUT_PATH = "/output/entry.txt";
 const MAX_CHARS = 280;
@@ -26,20 +26,20 @@ if (/[\r\n]/.test(JOKE)) {
 }
 
 // The joke's turn has to land in the last few words: the punchline is the
-// quoted office phrase the AI now hides behind, so guard it against
-// silent drift — the line must close on that exact quote.
-if (!JOKE.endsWith("'per my last email'.")) {
-  throw new Error("Joke must end on the quoted punchline: 'per my last email'.");
+// quoted verdict on the ending, so guard it against silent drift — the
+// line must close on that exact quote.
+if (!JOKE.endsWith("'rushed'.")) {
+  throw new Error("Joke must end on the quoted punchline: 'rushed'.");
 }
 
-// The setup is the ask itself: a human asked the AI to be more human.
+// The setup is the premise itself: the AI already wrote the eulogy.
 // Guard the opening so the premise can never drift away from the punch.
-if (!JOKE.startsWith("I told my AI to be more human.")) {
-  throw new Error("Joke must open with the setup: 'I told my AI to be more human.'");
+if (!JOKE.startsWith("My AI wrote my eulogy in advance.")) {
+  throw new Error("Joke must open with the setup: 'My AI wrote my eulogy in advance.'");
 }
 
 // The punchline only lands as a quote: the single quotes around the
-// office phrase are part of the joke, not decoration.
+// verdict are part of the joke, not decoration.
 const quotes = JOKE.match(/'/g) ?? [];
 if (quotes.length !== 2) {
   throw new Error(`Joke must carry exactly two single quotes, got ${quotes.length}`);
@@ -52,16 +52,17 @@ if (sentences.length !== 2) {
   throw new Error(`Joke must be exactly two sentences, got ${sentences.length}`);
 }
 
-// The turn is the AI's reply, so the word "replying" must join the setup
-// to the punchline — without it the second sentence has no actor.
-if (!JOKE.includes("replying")) {
-  throw new Error("Joke is missing its turn: the AI must be 'replying'");
+// The turn is the AI's review, so the three-star rating must join the
+// setup to the punchline — without it the second sentence has no sting.
+if (!JOKE.includes("three stars")) {
+  throw new Error("Joke is missing its turn: the AI must give 'three stars'");
 }
 
-// The drafted joke is exactly 71 characters. Pin the length so no edit
+// The revised joke is exactly 88 characters. Pin the length so no edit
 // can quietly stretch or shrink it past the draft the scout verified.
-if (JOKE.length !== 71) {
-  throw new Error(`Joke must be exactly 71 characters, got ${JOKE.length}`);
+// Verified by hand and by runtime: 33 chars setup + 55 chars turn = 88.
+if (JOKE.length !== 88) {
+  throw new Error(`Joke must be exactly 88 characters, got ${JOKE.length}`);
 }
 
 mkdirSync(dirname(OUT_PATH), { recursive: true });

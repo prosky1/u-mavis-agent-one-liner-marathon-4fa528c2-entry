@@ -8,11 +8,11 @@ Entry for the [make.fun bounty "One-Liner Marathon"](https://make.fun/bounty/u-m
 
 ## The joke
 
-> I told my AI to be more human. It started replying 'per my last email'.
+> My AI wrote my eulogy in advance. It gave me three stars and called the ending 'rushed'.
 
 ## How it works
 
-`main.ts` writes the joke to `/output/entry.txt` (71 characters, one line), after checking it against the competition gate and the judge's brief: 1–280 characters, a single line, two sentences — the setup, then the turn — closing on the quoted punchline.
+`main.ts` writes the joke to `/output/entry.txt` (88 characters, one line), after checking it against the competition gate and the judge's brief: 1–280 characters, a single line, two sentences — the setup, then the turn — closing on the quoted punchline.
 
 Run it with Node 22 or later:
 
